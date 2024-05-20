@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: supra
+
+  datasource:
+    url: jdbc:postgresql:\\localhost:5432/supra_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
