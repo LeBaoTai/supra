@@ -30,4 +30,8 @@ public class UserService {
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public UserEntity getOneUser(String uid) {
+        return userRepository.findById(uid).orElseThrow(() -> new RuntimeException("User not found"));
+    }
 }
