@@ -34,4 +34,9 @@ public class UserController {
     public UserEntity getOneUserByUid(@PathVariable("uid") String uid,@RequestBody UserUpdateRequest request) {
         return userService.updateUser(uid, request);
     }
+
+    @DeleteMapping("/{uid}")
+    void deleteOneUser(@PathVariable("uid") String uid) {
+        userService.deleteUser(uid);
+    }
 }
