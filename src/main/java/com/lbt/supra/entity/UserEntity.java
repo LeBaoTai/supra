@@ -18,9 +18,10 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.NONE)
     String id;
+    @Setter(AccessLevel.NONE)
     String username;
     String password;
     String firstName;
-    String LastName;
+    String lastName;
     LocalDate dob;
 }
