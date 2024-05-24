@@ -15,4 +15,5 @@ public interface UserMapper {
     UserEntity toUserEntity(UserCreationRequest request);
 
     UserResponse toUserResponse(UserEntity user);
+
 }
