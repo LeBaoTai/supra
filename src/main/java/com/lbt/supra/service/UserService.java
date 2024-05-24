@@ -37,16 +37,24 @@ public class UserService {
     }
 
     public List<UserResponse> getAllUsers() {
-        return userRepository.findAll().stream().map((userMapper::toUserResponse)).toList();
+        return userRepository.findAll()
+                .stream()
+                .map((userMapper::toUserResponse))
+                .toList();
     }
 
     public UserResponse getOneUser(String uid) {
-        return userMapper.toUserResponse(userRepository.findById(uid).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
+        return userMapper.toUserResponse(
+                userRepository
+                        .findById(uid)
+                        .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
     public UserResponse updateUser(String uid, UserUpdateRequest request) {
 
-        UserEntity user = userRepository.findById(uid).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        UserEntity user = userRepository
+                .findById(uid)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userMapper.updateUser(user, request);
 
         return userMapper.toUserResponse(userRepository.save(user));

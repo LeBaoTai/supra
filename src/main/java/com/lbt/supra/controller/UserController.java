@@ -23,28 +23,40 @@ public class UserController {
 
     @PostMapping
     public ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
-         return ApiResponse.<UserResponse>builder()
-                .result(userService.createUser(request)).build();
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.createUser(request))
+                .build();
     }
 
     @GetMapping
-    public ApiResponse<List<UserResponse>>getAllUsers() {
-        return ApiResponse.<List<UserResponse>>builder().result(userService.getAllUsers()).build();
+    public ApiResponse<List<UserResponse>> getAllUsers() {
+        return ApiResponse.<List<UserResponse>>builder()
+                .code(1)
+                .result(userService.getAllUsers())
+                .build();
     }
 
     @GetMapping("/{uid}")
-    public UserResponse getOneUser(@PathVariable("uid") String uid) {
-        return userService.getOneUser(uid);
+    public ApiResponse<UserResponse> getOneUser(@PathVariable("uid") String uid) {
+        return ApiResponse.<UserResponse>builder()
+                .code(1)
+                .result(userService.getOneUser(uid))
+                .build();
     }
 
     @PutMapping("/{uid}")
-    public UserResponse getOneUserByUid(@PathVariable("uid") String uid, @RequestBody @Valid UserUpdateRequest request) {
-        return userService.updateUser(uid, request);
+    public ApiResponse<UserResponse> updateUser(@PathVariable("uid") String uid, @RequestBody @Valid UserUpdateRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .code(1)
+                .result(userService.updateUser(uid, request))
+                .build();
     }
 
     @DeleteMapping("/{uid}")
     ApiResponse<String> deleteOneUser(@PathVariable("uid") String uid) {
         userService.deleteUser(uid);
-        return ApiResponse.<String>builder().message("User Deleted").build();
+        return ApiResponse.<String>builder()
+                .message("User Deleted")
+                .build();
     }
 }
