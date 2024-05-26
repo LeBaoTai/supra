@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 public enum ErrorCode {
     UNAUTHORIZED_EXCEPTION(9999, "Unauthorized Exception"),
-
+    UNAUTHENTICATED(1006, "Unauthenticated"),
 
     USER_EXISTED(1001, "User already exists!"),
     USER_NOT_EXISTED(1002, "User not exists!"),
