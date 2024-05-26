@@ -10,7 +10,7 @@ public enum ErrorCode {
 
 
     USER_EXISTED(1001, "User already exists!"),
-    USER_NOT_FOUND(1002, "User not found!"),
+    USER_NOT_EXISTED(1002, "User not exists!"),
 
     USERNAME_NOT_VALID(1003, "Username at least 6 character!"),
     PASSWORD_NOT_VALID(1004, "Password at least 6 character!"),
