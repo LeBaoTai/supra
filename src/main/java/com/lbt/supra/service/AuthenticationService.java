@@ -1,25 +1,29 @@
 package com.lbt.supra.service;
 
 import com.lbt.supra.dto.request.AuthenticationRequest;
+import com.lbt.supra.dto.request.IntrospectRequest;
 import com.lbt.supra.dto.response.AuthenticationResponse;
+import com.lbt.supra.dto.response.IntrospectResponse;
 import com.lbt.supra.exception.AppException;
 import com.lbt.supra.exception.ErrorCode;
 import com.lbt.supra.repository.UserRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -31,19 +35,39 @@ public class AuthenticationService {
     UserRepository userRepository;
 
     @NonFinal
-    protected final static String SIGNER_KEY = "fAoLeGbCiBb4VbWh1EdZu3PeM4EUvJfjffYWPYQtlcDsEUR8w959Y+MxUiOudvLs";
+    @Value("${jwt.key}")
+    protected String SIGNER_KEY;
+
+    public IntrospectResponse authenticate(IntrospectRequest request)
+            throws JOSEException, ParseException {
+        String token = request.getToken();
+
+        JWSVerifier jwsVerifier = new MACVerifier(SIGNER_KEY.getBytes());
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        Date expTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        boolean verified = signedJWT.verify(jwsVerifier);
+
+        return IntrospectResponse.builder()
+                .valid(verified && expTime.after(new Date()))
+                .build();
+    }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        boolean authenticated =  passwordEncoder.matches(request.getPassword(), user.getPassword());
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
+
+        String token = generateToken(request.getUsername());
+
         return AuthenticationResponse.builder()
-                .token(generateToken(request.getUsername()))
+                .token(token)
                 .authenticated(authenticated)
                 .build();
     }
