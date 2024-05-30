@@ -4,6 +4,7 @@ import com.lbt.supra.dto.request.UserCreationRequest;
 import com.lbt.supra.dto.request.UserUpdateRequest;
 import com.lbt.supra.dto.response.UserResponse;
 import com.lbt.supra.entity.UserEntity;
+import com.lbt.supra.enums.Role;
 import com.lbt.supra.exception.AppException;
 import com.lbt.supra.exception.ErrorCode;
 import com.lbt.supra.mapper.UserMapper;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -26,6 +28,8 @@ public class UserService {
 
     UserMapper userMapper;
 
+    PasswordEncoder passwordEncoder;
+
 
     public UserResponse createUser(UserCreationRequest request) {
 
@@ -34,8 +38,13 @@ public class UserService {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        HashSet<String> role = new HashSet<>();
+        role.add(Role.USER.name());
+
+        user.setRoles(role);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
