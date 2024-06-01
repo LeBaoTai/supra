@@ -18,7 +18,7 @@ public class GlobalException {
                 .message(ErrorCode.UNAUTHORIZED_EXCEPTION.getMessage())
                 .build();
 
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.status(ErrorCode.UNAUTHORIZED_EXCEPTION.getHttpStatusCode()).body(response);
     }
 
     @ExceptionHandler(value = AppException.class)
@@ -31,7 +31,7 @@ public class GlobalException {
                 .message(errorCode.getMessage())
                 .build();
 
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.status(errorCode.getHttpStatusCode()).body(response);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
