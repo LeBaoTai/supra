@@ -6,7 +6,7 @@ import com.lbt.supra.dto.response.AuthenticationResponse;
 import com.lbt.supra.dto.response.IntrospectResponse;
 import com.lbt.supra.entity.UserEntity;
 import com.lbt.supra.exception.AppException;
-import com.lbt.supra.exception.ErrorCode;
+import com.lbt.supra.enums.ErrorCode;
 import com.lbt.supra.repository.UserRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -102,9 +102,9 @@ public class AuthenticationService {
 
     private String buildScope(UserEntity user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if(!CollectionUtils.isEmpty(user.getRoles())) {
-            user.getRoles().forEach(stringJoiner::add);
-        }
+//        if(!CollectionUtils.isEmpty(user.getRoles())) {
+//            user.getRoles().forEach(stringJoiner::add);
+//        }
         return stringJoiner.toString();
     }
 }

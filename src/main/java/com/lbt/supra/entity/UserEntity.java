@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
 @Data
 @Builder
 @FieldDefaults(level=AccessLevel.PRIVATE)
@@ -25,5 +24,7 @@ public class UserEntity {
     String firstName;
     String lastName;
     LocalDate dob;
-    Set<String> roles;
+
+    @ManyToMany
+    Set<RoleEntity> roles;
 }

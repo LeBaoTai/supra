@@ -1,5 +1,6 @@
 package com.lbt.supra.dto.response;
 
+import com.lbt.supra.entity.RoleEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,5 +21,5 @@ public class UserResponse {
     String firstName;
     String lastName;
     LocalDate dob;
-    Set<String> roles;
+    Set<RoleEntity> roles;
 }

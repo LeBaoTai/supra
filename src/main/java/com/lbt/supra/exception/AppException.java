@@ -1,5 +1,6 @@
 package com.lbt.supra.exception;
 
+import com.lbt.supra.enums.ErrorCode;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

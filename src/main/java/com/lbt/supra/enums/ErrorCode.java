@@ -1,4 +1,4 @@
-package com.lbt.supra.exception;
+package com.lbt.supra.enums;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
-    UNAUTHORIZED_EXCEPTION(9999, "Unauthorized Exception", HttpStatus.INTERNAL_SERVER_ERROR),
+    UNCATEGORIZED_EXCEPTION(9999, "Uncategorized Exception", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHENTICATED(1006, "Unauthenticated", HttpStatus.UNAUTHORIZED),
 
     USER_EXISTED(1001, "User already exists!", HttpStatus.BAD_REQUEST),

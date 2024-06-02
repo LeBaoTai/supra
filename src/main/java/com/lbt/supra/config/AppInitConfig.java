@@ -32,7 +32,6 @@ public class AppInitConfig {
                 UserEntity user = UserEntity.builder()
                         .username("admin")
                         .password(passwordEncoder.encode("admin"))
-                        .roles(role)
                         .build();
 
                 userRepository.save(user);

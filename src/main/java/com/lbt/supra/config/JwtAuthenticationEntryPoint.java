@@ -2,7 +2,7 @@ package com.lbt.supra.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lbt.supra.dto.request.ApiResponse;
-import com.lbt.supra.exception.ErrorCode;
+import com.lbt.supra.enums.ErrorCode;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

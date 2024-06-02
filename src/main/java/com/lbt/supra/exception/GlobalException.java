@@ -1,6 +1,7 @@
 package com.lbt.supra.exception;
 
 import com.lbt.supra.dto.request.ApiResponse;
+import com.lbt.supra.enums.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,11 +15,11 @@ public class GlobalException {
     @ExceptionHandler(value = RuntimeException.class)
     ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException e) {
         ApiResponse response = ApiResponse.builder()
-                .code(ErrorCode.UNAUTHORIZED_EXCEPTION.getCode())
-                .message(ErrorCode.UNAUTHORIZED_EXCEPTION.getMessage())
+                .code(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode())
+                .message(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage())
                 .build();
 
-        return ResponseEntity.status(ErrorCode.UNAUTHORIZED_EXCEPTION.getHttpStatusCode()).body(response);
+        return ResponseEntity.status(ErrorCode.UNCATEGORIZED_EXCEPTION.getHttpStatusCode()).body(response);
     }
 
     @ExceptionHandler(value = AppException.class)

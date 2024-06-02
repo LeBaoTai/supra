@@ -6,7 +6,7 @@ import com.lbt.supra.dto.response.UserResponse;
 import com.lbt.supra.entity.UserEntity;
 import com.lbt.supra.enums.Role;
 import com.lbt.supra.exception.AppException;
-import com.lbt.supra.exception.ErrorCode;
+import com.lbt.supra.enums.ErrorCode;
 import com.lbt.supra.mapper.UserMapper;
 import com.lbt.supra.repository.UserRepository;
 import lombok.AccessLevel;
@@ -17,7 +17,6 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +49,7 @@ public class UserService {
         HashSet<String> role = new HashSet<>();
         role.add(Role.USER.name());
 
-        user.setRoles(role);
+//        user.setRoles(role);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
