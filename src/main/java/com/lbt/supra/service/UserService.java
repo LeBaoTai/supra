@@ -3,11 +3,13 @@ package com.lbt.supra.service;
 import com.lbt.supra.dto.request.UserCreationRequest;
 import com.lbt.supra.dto.request.UserUpdateRequest;
 import com.lbt.supra.dto.response.UserResponse;
+import com.lbt.supra.entity.RoleEntity;
 import com.lbt.supra.entity.UserEntity;
 import com.lbt.supra.enums.Role;
 import com.lbt.supra.exception.AppException;
 import com.lbt.supra.enums.ErrorCode;
 import com.lbt.supra.mapper.UserMapper;
+import com.lbt.supra.repository.RoleRepository;
 import com.lbt.supra.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,8 @@ public class UserService {
     UserMapper userMapper;
 
     PasswordEncoder passwordEncoder;
+
+    RoleRepository roleRepository;
 
 
     public UserResponse createUser(UserCreationRequest request) {
@@ -86,6 +90,12 @@ public class UserService {
                 .findById(uid)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         userMapper.updateUser(user, request);
+
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        List<RoleEntity> roles = roleRepository.findAllById(request.getRoles());
+
+        user.setRoles(new HashSet<>(roles));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
