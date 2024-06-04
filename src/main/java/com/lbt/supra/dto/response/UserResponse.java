@@ -1,6 +1,6 @@
 package com.lbt.supra.dto.response;
 
-import com.lbt.supra.entity.RoleEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,5 +21,5 @@ public class UserResponse {
     String firstName;
     String lastName;
     LocalDate dob;
-    Set<RoleEntity> roles;
+    Set<RoleResponse> roles;
 }

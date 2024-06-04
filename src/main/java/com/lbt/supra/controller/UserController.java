@@ -24,7 +24,6 @@ public class UserController {
     @PostMapping
     public ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
-                .code(1)
                 .result(userService.createUser(request))
                 .build();
     }
@@ -32,7 +31,6 @@ public class UserController {
     @GetMapping
     public ApiResponse<List<UserResponse>> getAllUsers() {
         return ApiResponse.<List<UserResponse>>builder()
-                .code(1)
                 .result(userService.getAllUsers())
                 .build();
     }
@@ -40,7 +38,6 @@ public class UserController {
     @GetMapping("/{uid}")
     public ApiResponse<UserResponse> getOneUser(@PathVariable("uid") String uid) {
         return ApiResponse.<UserResponse>builder()
-                .code(1)
                 .result(userService.getOneUser(uid))
                 .build();
     }
@@ -48,7 +45,6 @@ public class UserController {
     @GetMapping("/myInfo")
     public ApiResponse<UserResponse> getMyInfo() {
         return ApiResponse.<UserResponse>builder()
-                .code(1)
                 .result(userService.getMyInfo())
                 .build();
     }
@@ -57,7 +53,6 @@ public class UserController {
     @PutMapping("/{uid}")
     public ApiResponse<UserResponse> updateUser(@PathVariable("uid") String uid, @RequestBody @Valid UserUpdateRequest request) {
         return ApiResponse.<UserResponse>builder()
-                .code(1)
                 .result(userService.updateUser(uid, request))
                 .build();
     }
