@@ -10,8 +10,6 @@ import java.util.Set;
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserResponse {
 
     @Setter(AccessLevel.NONE)
