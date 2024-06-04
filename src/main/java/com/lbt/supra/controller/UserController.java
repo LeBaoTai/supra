@@ -1,18 +1,23 @@
 package com.lbt.supra.controller;
 
-import com.lbt.supra.dto.response.ApiResponse;
 import com.lbt.supra.dto.request.UserCreationRequest;
 import com.lbt.supra.dto.request.UserUpdateRequest;
+import com.lbt.supra.dto.response.ApiResponse;
 import com.lbt.supra.dto.response.UserResponse;
 import com.lbt.supra.service.UserService;
+import com.nimbusds.jose.proc.SecurityContext;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -30,6 +35,13 @@ public class UserController {
 
     @GetMapping
     public ApiResponse<List<UserResponse>> getAllUsers() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        log.info("Username: {}", authentication.getName());
+
+        authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
+
+
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getAllUsers())
                 .build();
