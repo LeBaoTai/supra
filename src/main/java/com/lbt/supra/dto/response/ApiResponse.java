@@ -1,4 +1,4 @@
-package com.lbt.supra.dto.request;
+package com.lbt.supra.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

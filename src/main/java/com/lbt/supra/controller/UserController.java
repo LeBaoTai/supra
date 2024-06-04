@@ -1,6 +1,6 @@
 package com.lbt.supra.controller;
 
-import com.lbt.supra.dto.request.ApiResponse;
+import com.lbt.supra.dto.response.ApiResponse;
 import com.lbt.supra.dto.request.UserCreationRequest;
 import com.lbt.supra.dto.request.UserUpdateRequest;
 import com.lbt.supra.dto.response.UserResponse;

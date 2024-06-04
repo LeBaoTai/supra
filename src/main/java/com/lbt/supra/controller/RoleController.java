@@ -1,6 +1,6 @@
 package com.lbt.supra.controller;
 
-import com.lbt.supra.dto.request.ApiResponse;
+import com.lbt.supra.dto.response.ApiResponse;
 import com.lbt.supra.dto.request.RoleRequest;
 import com.lbt.supra.dto.response.RoleResponse;
 import com.lbt.supra.service.RoleService;
